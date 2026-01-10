@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <h1>Game</h1>
+    <label for="">
+        🚩
+        <input type="checkbox" id="is_flag">
+    </label>
+    <div id="board"></div>
+    <pre id="dbg">
+
+    </pre>
+
+    <script type="module">
+        import {init, reveal,EMPTY,BOMB ,FLAG, setFlag} from "./game.js";
+const size = 10;
+const res =  init(size);
+
+const myArray = res.myArray;
+const arrayBombs = res.arrayBombs.join("\n")
+
+dbg.innerHTML = arrayBombs
+const picArray = ['0️⃣ ', '1️⃣ ', '2️⃣ ', '3️⃣ ', '4️⃣ ', '5️⃣ ', '6️⃣ ', '7️⃣ ', '8️⃣ ', "⬜", '💣', '🚩'];
+export function print(showBombs) {
+    let all = ""
+    for (let i = 0; i < myArray.length; i++) {
+        let line = "";
+        for (let j = 0; j < myArray.length; j++) {
+            let str = "";
+            const cellValue = myArray[i][j];
+            const cellBomb = arrayBombs[i][j];
+            if(showBombs && cellBomb === BOMB){
+                str = String(picArray[10]) + '  ';
+            }else
+            if (cellValue === FLAG)
+                str = String(picArray[11]) + '  ';
+            else if (cellValue === EMPTY )
+                str = String(picArray[9]) + '  ';
+            else if (showBombs && cellBomb === BOMB) {
+                str = String(picArray[10]) + '  ';
+            }
+            else
+                str = String(picArray[cellValue]) + '  ';
+        str = `<button data-x="${i+1} ${j+1}">${str}</button>`;
+        line+=str; 
+        }
+
+        all += line+"<br/>";
+    }
+    board.innerHTML = all;
+}
+board.addEventListener("click",(e)=>{
+    const inputs = e.target.dataset.x;
+   
+    const input = inputs.split(" ");
+    const rowNum = valid(parseInt(input[0]));
+    const colNum = valid(parseInt(input[1]));
+   // alert(rowNum+" | "+colNum+"|"+input)
+   if(is_flag.checked){
+     setFlag(rowNum,colNum)
+     print(false)
+   }else
+    clickOn(rowNum,colNum)
+})
+print(false)
+
+function valid(n = 0) {
+    return Math.max(1, Math.min(n, size)) - 1;
+}
+
+function clickOn(rowNum,colNum){
+  
+  
+    const state = reveal(rowNum,colNum)
+    switch(state){
+        case "bomb":
+          
+          alert("its a bomb; game over");  print(true);
+          
+            break;
+        case "won":
+           
+          alert("you won"); print(true);
+        default:  print(false)
+    }
+
+}
+
+
+
+
+    </script>
+</body>
+</html>
