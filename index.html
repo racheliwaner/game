@@ -40,7 +40,7 @@ export function print(showBombs) {
             }else
             if (cellValue === FLAG)
                 str = String(picArray[11]) + '  ';
-            else if (cellValue === EMPTY )
+            else if (cellValue === EMPTY && cellBomb !== BOMB )
                 str = String(picArray[9]) + '  ';
           //  else if (showBombs && cellBomb === BOMB) {
             //    str = String(picArray[10]) + '  ';
@@ -99,4 +99,5 @@ function clickOn(rowNum,colNum){
 </body>
 
 </html>
+
 
