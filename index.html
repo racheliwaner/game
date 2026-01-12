@@ -64,11 +64,11 @@ board.addEventListener("click",(e)=>{
    // alert(rowNum+" | "+colNum+"|"+input)
    if(is_flag.checked){
      setFlag(rowNum,colNum)
-    // print(false)
+   print(false)
    }else
     clickOn(rowNum,colNum)
 })
-//print(false)
+print(false)
 
 function valid(n = 0) {
     return Math.max(1, Math.min(n, size)) - 1;
@@ -87,7 +87,7 @@ function clickOn(rowNum,colNum){
         case "won":
            
           alert("you won"); //print(true);
-        default:  //print(false)
+        default:  print(false)
     }
 
 }
@@ -99,6 +99,7 @@ function clickOn(rowNum,colNum){
 </body>
 
 </html>
+
 
 
 
