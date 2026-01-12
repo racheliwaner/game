@@ -35,7 +35,7 @@ export function print(showBombs) {
             let str = "";
             const cellValue = myArray[i][j];
             const cellBomb = arrayBombs[i][j];
-            if(showBombs && cellBomb === BOMB){
+            if(!showBombs && cellBomb === BOMB){
                 str = String(picArray[10]) + '  ';
             }else
             if (cellValue === FLAG)
@@ -97,4 +97,5 @@ function clickOn(rowNum,colNum){
 
     </script>
 </body>
+
 </html>
