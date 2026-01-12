@@ -93,7 +93,7 @@ export function reveal(rowNum, colNum) {
   if (myArray[rowNum][colNum] === BOMB) {
     return "bomb";
   }
-console.log("hhhhh");
+
   placeChoice(rowNum, colNum);
 
   if (!checkWon()) {
@@ -114,4 +114,5 @@ export function init(size = 10) {
     arrayBombs
   };
 }
+
 
