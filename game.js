@@ -90,7 +90,7 @@ export function setFlag(rowNum, colNum) {
 }
 
 export function reveal(rowNum, colNum) {
-  if (myArray[rowNum][colNum] === BOMB) {
+  if (arrayBombs[rowNum][colNum] === BOMB) {
     return "bomb";
   }
 
@@ -114,5 +114,6 @@ export function init(size = 10) {
     arrayBombs
   };
 }
+
 
 
