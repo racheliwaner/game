@@ -35,16 +35,16 @@ export function print(showBombs) {
             let str = "";
             const cellValue = myArray[i][j];
             const cellBomb = arrayBombs[i][j];
-            if(!showBombs && cellBomb === BOMB){
+            if(showBombs && cellBomb === BOMB){
                 str = String(picArray[10]) + '  ';
             }else
             if (cellValue === FLAG)
                 str = String(picArray[11]) + '  ';
             else if (cellValue === EMPTY )
                 str = String(picArray[9]) + '  ';
-            else if (showBombs && cellBomb === BOMB) {
-                str = String(picArray[10]) + '  ';
-            }
+          //  else if (showBombs && cellBomb === BOMB) {
+            //    str = String(picArray[10]) + '  ';
+         //   }
             else
                 str = String(picArray[cellValue]) + '  ';
         str = `<button data-x="${i+1} ${j+1}">${str}</button>`;
@@ -99,3 +99,4 @@ function clickOn(rowNum,colNum){
 </body>
 
 </html>
+
