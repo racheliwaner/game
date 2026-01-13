@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -8,14 +11,19 @@
 </head>
 <body>
     <h1>Game</h1>
-    <label for="">
-        🚩
+
+
+    
+   <main>
+    <label for="is_flag">
+       
         <input type="checkbox" id="is_flag">
+        <span> 🚩</span>
     </label>
     <div id="board"></div>
-    <pre id="dbg">
-
-    </pre>
+   </main>
+   <h2 id="state"></h2>
+    
 
     <script type="module">
         import {init, reveal,EMPTY,BOMB ,FLAG, setFlag} from "./game.js";
@@ -25,7 +33,7 @@ const res =  init(size);
 const myArray = res.myArray;
 const arrayBombs = res.arrayBombs.join("\n")
 
-dbg.innerHTML = arrayBombs
+
 const picArray = ['0️⃣ ', '1️⃣ ', '2️⃣ ', '3️⃣ ', '4️⃣ ', '5️⃣ ', '6️⃣ ', '7️⃣ ', '8️⃣ ', "⬜", '💣', '🚩'];
 export function print(showBombs) {
     let all = ""
@@ -40,32 +48,29 @@ export function print(showBombs) {
             }else
             if (cellValue === FLAG)
                 str = String(picArray[11]) + '  ';
-            else if (cellValue === EMPTY  )
+            else if (cellValue === EMPTY )
                 str = String(picArray[9]) + '  ';
-          //  else if (showBombs && cellBomb === BOMB) {
-            //    str = String(picArray[10]) + '  ';
-         //   }
+           // else if (showBombs && cellBomb === BOMB) {
+              //  str = String(picArray[10]) + '  ';
+          // }
             else
                 str = String(picArray[cellValue]) + '  ';
         str = `<button data-x="${i+1} ${j+1}">${str}</button>`;
         line+=str; 
         }
 
-        all += line+"<br/>";
+        all += `<div class="row">${line}</div>`;
     }
     board.innerHTML = all;
 }
-board.addEventListener("click",(e)=>{
+board.addEventListener("mousedown",(e)=>{
     const inputs = e.target.dataset.x;
    
     const input = inputs.split(" ");
     const rowNum = valid(parseInt(input[0]));
     const colNum = valid(parseInt(input[1]));
    // alert(rowNum+" | "+colNum+"|"+input)
-   if(is_flag.checked){
-     setFlag(rowNum,colNum)
-   print(false)
-   }else
+   
     clickOn(rowNum,colNum)
 })
 print(false)
@@ -75,33 +80,32 @@ function valid(n = 0) {
 }
 
 function clickOn(rowNum,colNum){
-  
-  
-    const state = reveal(rowNum,colNum)
+   
+    const isFlagMode = is_flag.checked;
+    const state =isFlagMode ? setFlag(rowNum,colNum): reveal(rowNum,colNum)
+    print(false)
     switch(state){
         case "bomb":
-          
-          alert("its a bomb; game over");  print(true);
-          
+        onLose();
             break;
         case "won":
-           
-          alert("you won"); //print(true);
-        default:  print(false)
+        onWin();
     }
 
 }
+
+function onWin(){
+    document.getElementById("state").innerHTML="YOU WIN!!!"; 
+}
+
+function onLose(){
+    document.getElementById("state").innerHTML="GAMA OVER";
+}
+
 
 
 
 
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
